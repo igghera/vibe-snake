@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>Snake AI — Classic Snake Game</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,13 +11,9 @@
   </head>
   <body>
     <header class="app-header">
-      <div class="brand">
-        <span class="logo" aria-hidden>🟩</span>
-        <h1>Snake</h1>
-      </div>
       <div class="hud">
         <div class="stat"><span>Score</span><strong id="score">0</strong></div>
-        <div class="stat"><span>Best</span><strong id="best">0</strong></div>
+        <div class="stat" style="display: none"><span>Best</span><strong id="best">0</strong></div>
         <div class="controls">
           <button id="pauseBtn" class="btn" aria-label="Pause">Pause</button>
           <button id="restartBtn" class="btn" aria-label="Restart">Restart</button>
@@ -28,11 +24,11 @@
 
     <main class="app-main">
       <div class="game-shell">
+        <div id="overlaySubtext" class="overlay-subtext">Use arrow keys / WASD. On mobile: swipe or use the pad.</div>
         <canvas id="board" width="600" height="600" aria-label="Snake game area"></canvas>
 
         <div id="overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-live="polite">
           <div id="overlayText" class="overlay-text">Tap or press Space to start</div>
-          <div class="overlay-subtext">Use arrow keys / WASD. On mobile: swipe or use the pad.</div>
         </div>
 
         <div class="dpad" aria-label="On-screen controls">
@@ -79,6 +75,10 @@
     </dialog>
 
     <footer class="app-footer">
+      <div class="brand">
+        <span class="logo" aria-hidden>🟩</span>
+        <h1>Snake</h1>
+      </div>
       <span>Vibe-coded by Filippo and Cosimo</span>
     </footer>
 

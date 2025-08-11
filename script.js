@@ -6,6 +6,7 @@
   const ctx = canvas.getContext("2d");
   const overlay = document.getElementById("overlay");
   const overlayText = document.getElementById("overlayText");
+  const overlaySubtext = document.getElementById("overlaySubtext");
   const scoreEl = document.getElementById("score");
   const bestEl = document.getElementById("best");
   const pauseBtn = document.getElementById("pauseBtn");
@@ -67,7 +68,7 @@
   let best = Number(localStorage.getItem("snake_best") || 0);
   let running = false;
   let paused = false;
-  let walls = "solid"; // or 'wrap'
+  let walls = "wrap"; // or 'wrap'
   let speedMs = 130; // base speed; will adjust via difficulty
   let lastTick = 0;
   const lightDir = { x: -0.6, y: -0.8 }; // top-left light
@@ -138,6 +139,7 @@
     running = false;
     paused = false;
     overlay.classList.remove("hidden");
+    overlaySubtext.classList.remove("hidden");
     overlayText.textContent = "Tap or press Space to start";
     lastTick = 0;
   }
@@ -157,11 +159,13 @@
     running = true;
     paused = false;
     overlay.classList.add("hidden");
+    overlaySubtext.classList.add("hidden");
   }
 
   function gameOver() {
     running = false;
     overlay.classList.remove("hidden");
+    overlaySubtext.classList.remove("hidden");
     overlayText.textContent = "Game Over — press R to restart";
     beep(150, 200, "sawtooth", 0.05);
     if (score > best) {
@@ -528,11 +532,37 @@
     { passive: true }
   );
 
+  // Prevent double-tap and pinch zoom on mobile browsers
+  // Double-tap prevention
+  let lastTouchEndTs = 0;
+  document.addEventListener(
+    "touchend",
+    (e) => {
+      const now = Date.now();
+      if (now - lastTouchEndTs < 300) {
+        e.preventDefault();
+      }
+      lastTouchEndTs = now;
+    },
+    { passive: false }
+  );
+  // Pinch prevention (safety; viewport also disables scaling)
+  document.addEventListener(
+    "touchmove",
+    (e) => {
+      if (e.touches && e.touches.length > 1) {
+        e.preventDefault();
+      }
+    },
+    { passive: false }
+  );
+
   // Controls
   function togglePause() {
     if (!running) return;
     paused = !paused;
     overlay.classList.toggle("hidden", !paused);
+    overlaySubtext.classList.toggle("hidden", !paused);
     overlayText.textContent = paused ? "Paused — press P to resume" : "";
   }
   pauseBtn.addEventListener("click", togglePause);
