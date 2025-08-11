@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Snake AI — Classic Snake Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <span class="logo" aria-hidden>🟩</span>
+        <h1>Snake</h1>
+      </div>
+      <div class="hud">
+        <div class="stat"><span>Score</span><strong id="score">0</strong></div>
+        <div class="stat"><span>Best</span><strong id="best">0</strong></div>
+        <div class="controls">
+          <button id="pauseBtn" class="btn" aria-label="Pause">Pause</button>
+          <button id="restartBtn" class="btn" aria-label="Restart">Restart</button>
+          <button id="settingsBtn" class="btn" aria-label="Settings">Settings</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <div class="game-shell">
+        <canvas id="board" width="600" height="600" aria-label="Snake game area"></canvas>
+
+        <div id="overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-live="polite">
+          <div id="overlayText" class="overlay-text">Tap or press Space to start</div>
+          <div class="overlay-subtext">Use arrow keys / WASD. On mobile: swipe or use the pad.</div>
+        </div>
+
+        <div class="dpad" aria-label="On-screen controls">
+          <button class="dpad-btn up" data-dir="up" aria-label="Up">▲</button>
+          <div class="middle">
+            <button class="dpad-btn left" data-dir="left" aria-label="Left">◀</button>
+            <button class="dpad-btn right" data-dir="right" aria-label="Right">▶</button>
+          </div>
+          <button class="dpad-btn down" data-dir="down" aria-label="Down">▼</button>
+        </div>
+      </div>
+    </main>
+
+    <dialog id="settingsDialog" class="settings">
+      <form method="dialog">
+        <h2>Settings</h2>
+        <label class="field">
+          <span>Difficulty</span>
+          <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="normal" selected>Normal</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Walls</span>
+          <select id="walls">
+            <option value="solid" selected>Solid (classic)</option>
+            <option value="wrap">Wrap-around</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Sound</span>
+          <select id="sound">
+            <option value="on" selected>On</option>
+            <option value="off">Off</option>
+          </select>
+        </label>
+        <menu>
+          <button value="cancel" class="btn secondary">Close</button>
+          <button id="applySettings" value="default" class="btn primary">Apply</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <footer class="app-footer">
+      <span>Built with vanilla JS and Canvas</span>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
