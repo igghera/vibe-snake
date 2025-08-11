@@ -577,6 +577,20 @@
     settingsDialog.close();
   });
 
+  // Start game on tap/click when the start overlay is visible (mobile-friendly)
+  function tryStartFromTap() {
+    const text = (overlayText.textContent || "").toLowerCase();
+    const isStartPrompt = text.includes("tap") || text.includes("space");
+    if (!running && isStartPrompt) {
+      startGame();
+    }
+  }
+  overlay.addEventListener("click", tryStartFromTap);
+  overlay.addEventListener("touchstart", tryStartFromTap, { passive: true });
+  // Also allow tapping the canvas itself (in case overlay styles change)
+  canvas.addEventListener("click", tryStartFromTap);
+  canvas.addEventListener("touchstart", tryStartFromTap, { passive: true });
+
   // Game loop
   function tick(nowMs) {
     requestAnimationFrame(tick);
