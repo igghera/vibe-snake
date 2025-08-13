@@ -15,9 +15,9 @@
   "theme_color": "#0e1730",
   "icons": [
     {
-      "src": "/icons/icon.svg",
+      "src": "/icons/icon-1024.png",
       "sizes": "any",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "maskable any"
     },
     {
